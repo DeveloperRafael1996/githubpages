@@ -79,17 +79,23 @@
 
                 const tokenId = Culqi.token.id;
                 const email = Culqi.token.email;
+
                 console.info(Culqi.token)
+                console.log('Pay')
 
+            }
+            else if(Culqi.order) {
+                Culqi.close();
+                const order = Culqi.order;
 
-                //Process Pay
-                
+                console.info(order);
+                console.log('Order')
 
-
-
-                
-            } else {
+            }
+            else {
+                console.error('Error')
                 console.error(Culqi.error)
+                
                 alert(Culqi.error.user_message);
                 // $("#response-panel").show();
                 // $("#response").html(Culqi.error.merchant_message);
