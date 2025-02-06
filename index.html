@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
 </head>
 <body>
@@ -164,12 +164,12 @@
                     Culqi.close();
 
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Pago Exitoso',
-                        text: 'Tu pago se ha procesado correctamente.',
-                        confirmButtonText: 'OK'
-                    });
+                    // Swal.fire({
+                        //     icon: 'success',
+                        //     title: 'Pago Exitoso',
+                        //     text: 'Tu pago se ha procesado correctamente.',
+                        //     confirmButtonText: 'OK'
+                    // });
 
 
                     window.flutter_inappwebview.callHandler('paymentResult', {
@@ -198,7 +198,7 @@
                 //     status: 'error',
                 //     message: 'Error en la transacción'
                 // });
-                
+
             });
         }   
 
