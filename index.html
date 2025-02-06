@@ -6,26 +6,20 @@
     <title>Culqi Belity</title>
     <meta name="description" content="Integraction CulqiOnline">
     <meta name="author" content="Rafael Guevara Aller">
-
-    <style>
-        /* body {
-            background-color: black;
-        } */
-    </style>
-
 </head>
 <body>
     <script src="https://js.culqi.com/checkout-js"></script>
-
     <script type="module">
+
+        const publicKey = "pk_test_40d71bf94bdf8637";
 
         const settings = {
           title: 'Belity',
           currency: 'PEN', 
           amount: 8000,
           order: 'ord_live_0CjjdWhFpEAZlxlz', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
-          xculqirsaid: 'xxxxxxxxxxxxxxxxxxxxxxx',
-          rsapublickey: 'xxxxxxxxxxxxxxxyyyyyyyyyy',
+          //xculqirsaid: 'xxxxxxxxxxxxxxxxxxxxxxx',
+          //rsapublickey: 'xxxxxxxxxxxxxxxyyyyyyyyyy',
         }
 
         const client = {
@@ -76,9 +70,7 @@
             appearance
         };
 
-        const publicKey = 'pk_test_40d71bf94bdf8637';
         const Culqi = new CulqiCheckout(publicKey, config);
-
 
 
         Culqi.culqi = () => {
@@ -89,10 +81,16 @@
                 const email = Culqi.token.email;
                 console.info(Culqi.token)
 
+
+                //Process Pay
+                
+
+
+
                 
             } else {
                 console.error(Culqi.error)
-                //alert(Culqi.error.user_message);
+                alert(Culqi.error.user_message);
                 // $("#response-panel").show();
                 // $("#response").html(Culqi.error.merchant_message);
                 // $("body").waitMe("hide");
@@ -103,9 +101,9 @@
         Culqi.initCheckout();
         
         // const btn_pagar = document.getElementById('btn_pagar');
-        // btn_pagar.addEventListener('click', function (e) {
-        //     Culqi.open();
-        //     e.preventDefault();
+            // btn_pagar.addEventListener('click', function (e) {
+            //     Culqi.open();
+            //     e.preventDefault();
         // })
 
         Culqi.closeCheckout = () => {
