@@ -15,19 +15,17 @@
 
 </head>
 <body>
-
     <script src="https://js.culqi.com/checkout-js"></script>
 
-    <script>
-
+    <script type="module">
 
         const settings = {
           title: 'Belity',
           currency: 'PEN', 
           amount: 8000,
           order: 'ord_live_0CjjdWhFpEAZlxlz', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
-          xculqirsaid: 'Inserta aquí el id de tu llave pública RSA',
-          rsapublickey: 'Inserta aquí tu llave pública RSA',
+          xculqirsaid: 'xxxxxxxxxxxxxxxxxxxxxxx',
+          rsapublickey: 'xxxxxxxxxxxxxxxyyyyyyyyyy',
         }
 
         const client = {
@@ -41,7 +39,8 @@
             hiddenBanner: false,
             hiddenToolBarAmount: false,
             menuType: "sliderTop", // default/sidebar / sliderTop / select
-            logo: "https://static.culqi.com/v2/v2/static/img/logo.png",
+            //logo: "https://static.culqi.com/v2/v2/static/img/logo.png",
+            logo: "https://belity.app/images/icon_base.png",
             defaultStyle: {
                 //bannerColor: "#6434ff", // hexadecimal
                 buttonBackground: "", // hexadecimal
@@ -55,10 +54,10 @@
         const paymentMethods = {// las opciones se ordenan según se configuren
             tarjeta: true,
             yape: true,
-            billetera: true,
-            bancaMovil: true,
-            agente: true,
-            cuotealo: true,	
+            billetera: false,
+            bancaMovil: false,
+            agente: false,
+            cuotealo: false,	
 	    }
 
         const options = {
@@ -79,6 +78,28 @@
 
         const publicKey = 'pk_test_40d71bf94bdf8637';
         const Culqi = new CulqiCheckout(publicKey, config);
+
+
+
+        Culqi.culqi = () => {
+            if (Culqi.token) {
+                Culqi.close();
+
+                const tokenId = Culqi.token.id;
+                const email = Culqi.token.email;
+                console.info(Culqi.token)
+
+                
+            } else {
+                console.error(Culqi.error)
+                //alert(Culqi.error.user_message);
+                // $("#response-panel").show();
+                // $("#response").html(Culqi.error.merchant_message);
+                // $("body").waitMe("hide");
+            }
+        };
+
+
         Culqi.initCheckout();
         
         // const btn_pagar = document.getElementById('btn_pagar');
