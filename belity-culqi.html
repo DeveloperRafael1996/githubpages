@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culqi Belity</title>
+    <meta name="description" content="Integraction CulqiOnline">
+    <meta name="author" content="Rafael Guevara Aller">
+
+    <style>
+        /* body {
+            background-color: black;
+        } */
+    </style>
+
+</head>
+<body>
+
+    <script src="https://js.culqi.com/checkout-js"></script>
+
+    <script>
+
+
+        const settings = {
+          title: 'Belity',
+          currency: 'PEN', 
+          amount: 8000,
+          order: '', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
+          xculqirsaid: 'Inserta aquí el id de tu llave pública RSA',
+          rsapublickey: 'Inserta aquí tu llave pública RSA',
+        }
+
+        const client = {
+          email: 'rguevara@belity.app',
+        }
+
+        const appearance = {
+            theme: "default",
+            hiddenCulqiLogo: false,
+            hiddenBannerContent: false,
+            hiddenBanner: false,
+            hiddenToolBarAmount: false,
+            menuType: "sliderTop", // default/sidebar / sliderTop / select
+            logo: "https://static.culqi.com/v2/v2/static/img/logo.png",
+            defaultStyle: {
+                //bannerColor: "#6434ff", // hexadecimal
+                buttonBackground: "", // hexadecimal
+                menuColor: "", // hexadecimal
+                linksColor: "", // hexadecimal
+                buttonTextColor: "", // hexadecimal
+                priceColor: "",
+            },
+	    };
+
+        const paymentMethods = {// las opciones se ordenan según se configuren
+            tarjeta: true,
+            yape: true,
+            billetera: false,
+            bancaMovil: false,
+            agente: false,
+            cuotealo: false,	
+	    }
+
+        const options = {
+            lang: 'es',
+            installments: false, // Habilitar o deshabilitar el campo de cuotas
+            modal: true,
+            container: "#culqi-container", // Opcional - Div donde quieres cargar el checkout
+            paymentMethods: paymentMethods,
+            paymentMethodsSort: Object.keys(paymentMethods), // las opciones se ordenan según se configuren en paymentMethods
+        }
+
+        const config = {
+            settings,
+            client,
+            options,
+            appearance
+        };
+
+        const publicKey = 'pk_test_40d71bf94bdf8637';
+        const Culqi = new CulqiCheckout(publicKey, config);
+        Culqi.initCheckout();
+        
+        // const btn_pagar = document.getElementById('btn_pagar');
+        // btn_pagar.addEventListener('click', function (e) {
+        //     Culqi.open();
+        //     e.preventDefault();
+        // })
+
+        Culqi.closeCheckout = () => {
+            console.log("se cerró el checkout... ");
+        };
+
+      </script>
+    </script>
+
+</body>
+</html>
+
