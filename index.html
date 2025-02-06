@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <script src="https://js.culqi.com/checkout-js"></script>
@@ -161,16 +163,42 @@
                     console.log("Pago Exitoso");
                     Culqi.close();
 
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pago Exitoso',
+                        text: 'Tu pago se ha procesado correctamente.',
+                        confirmButtonText: 'OK'
+                    });
+
+
+                    window.flutter_inappwebview.callHandler('paymentResult', {
+                        status: 'success',
+                        message: 'Pago exitoso',
+                        charge_id: response.data.id
+                    });
+
                 }   
-                else {  
+                else if (response.data.object === "error") {  
                     console.log("Ocurrió un Error al procesar Pay");
                     Culqi.close();
-                }
 
+
+                    window.flutter_inappwebview.callHandler('paymentResult', {
+                        status: 'error',
+                        message: response.data.user_message || 'Ocurrió un error en el pago'
+                    });
+                }
             })
             .catch(function (error) {
                 console.log('Error Charges')
-                console.log(response.data)
+                console.log(error)
+
+                // window.flutter_inappwebview.callHandler('paymentResult', {
+                //     status: 'error',
+                //     message: 'Error en la transacción'
+                // });
+                
             });
         }   
 
@@ -184,10 +212,20 @@
 
         Culqi.closeCheckout = () => {
             console.log("Close... ");
+            Culqi.close();
+
         };
+
+        // const pagoExitoso = { success: true };
+        // const modalIframe = document.getElementById("modalFrame").contentWindow;
+        // modalIframe.postMessage(pagoExitoso, "*");
 
       </script>
     </script>
+
+
+
+    <iframe id="modalFrame" src="modal.html" style="width: 0; height: 0; border: none;"></iframe>
 
 </body>
 </html>

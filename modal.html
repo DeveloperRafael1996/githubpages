@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Exitoso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        .icon {
+            font-size: 40px;
+            color: green;
+        }
+        .message {
+            font-size: 20px;
+            font-weight: bold;
+            color: green;
+            margin-top: 10px;
+        }
+        .subtext {
+            color: #333;
+            margin-top: 5px;
+        }
+        .button {
+            background: green;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: darkgreen;
+        }
+    </style>
+    <script>
+        window.addEventListener("message", function(event) {
+            if (event.data.success) {
+                document.getElementById("modal").style.display = "block";
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="modal" class="modal">
+        <div class="icon">✔️</div>
+        <div class="message">Pago exitoso</div>
+        <div class="subtext">Tu pago se ha procesado correctamente.</div>
+        <button class="button" onclick="document.getElementById('modal').style.display='none'">Aceptar</button>
+    </div>
+</body>
+</html>
