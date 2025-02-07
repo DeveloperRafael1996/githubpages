@@ -6,7 +6,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="jquery.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-
 </head>
 <body>
     <script src="https://js.culqi.com/checkout-js"></script>
@@ -15,9 +14,9 @@
         const publicKey = "pk_test_40d71bf94bdf8637";
 
         const request = {
-            title: "Belity",
-            currency_code: "PEN",
-            amount: 16000,
+            title: "Guardar Tarjeta",
+            //currency_code: "PEN",
+            //amount: 16000,
             //orderId: "",
             first_name: "Dennis",
             last_name: "Sanchez",
@@ -26,9 +25,9 @@
 
         const settings = {
             title: request.title,
-            currency: request.currency_code,
-            amount: request.amount,
-            order: request.orderId,
+            //currency: request.currency_code,
+            //amount: request.amount,
+            //order: request.orderId,
             // xculqirsaid: 'xxxxxxxxxxxxxxxxxxxxxxx',
             // rsapublickey: 'xxxxxxxxxxxxxxxyyyyyyyyyy',
         };
@@ -56,6 +55,7 @@
             hiddenBanner: false,
             hiddenToolBarAmount: false,
             menuType: "sliderTop", // default/sidebar / sliderTop / select
+            buttonCardPayText: "Guardar",
             //logo: "https://static.culqi.com/v2/v2/static/img/logo.png",
             logo: "https://belity.app/images/icon_base.png",
             defaultStyle: {
@@ -70,7 +70,7 @@
 
         const paymentMethods = {// las opciones se ordenan según se configuren
             tarjeta: true,
-            yape: true,
+            yape: false,
             billetera: false,
             bancaMovil: false,
             agente: false,
@@ -104,7 +104,7 @@
                 const email = Culqi.token.email;
 
                 console.info(Culqi.token)
-                console.log('Pay Culqi')
+                console.log('Save Tarjeta')
 
                 //charges(Culqi.token);
 
@@ -121,96 +121,19 @@
                 //console.error('Error')
                 //console.error(Culqi.error)
                 //alert('Error Generar Token');
-                $("#response-panel").show();
-                $("#response").html(Culqi.error.merchant_message);
+                //$("#response-panel").show();
+                //$("#response").html(Culqi.error.merchant_message);
                 //$("body").waitMe("hide");
             }
         };
 
 
         async function charges(token, parameters3DS = null) {
-            const secretkey = "sk_test_03d258df778ca412";
-            const installments = token.metadata?.installments == undefined ? 0 : token.metadata?.installments;
-
-            const data_fraud = {
-                first_name: request.first_name,
-                last_name: request.last_name,
-                phone_number: request.phone_number,
-                device_finger_print_id: window.device
-            };
-
-            const data = {
-                amount: request.amount,
-                currency_code: request.currency_code,
-                email: client.email,
-                source_id: token.id,
-                //capture: true,
-                installments: installments,
-                antifraud_details: data_fraud,
-                //authentication_3DS: parameters3DS
-            };
-
-            console.log("Request: ", JSON.stringify(data));
-            await axios.post("https://api.culqi.com/v2/charges", data, {
-                headers: {
-                    Authorization: `Bearer ${secretkey}`,
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(function (response) {
-                console.log('Pay Charges');
-                console.log(response.data);
-
-                if (response.data.object === "charge") {
-                    console.log("Pago Exitoso");
-                    Culqi.close();
-
-
-                    // Swal.fire({
-                        //     icon: 'success',
-                        //     title: 'Pago Exitoso',
-                        //     text: 'Tu pago se ha procesado correctamente.',
-                        //     confirmButtonText: 'OK'
-                    // });
-
-
-                    window.flutter_inappwebview.callHandler('paymentResult', {
-                        status: 'success',
-                        message: 'Pago exitoso',
-                        charge_id: response.data.id
-                    });
-
-                }   
-                else if (response.data.object === "error") {  
-                    console.log("Ocurrió un Error al procesar Pay");
-                    Culqi.close();
-
-
-                    window.flutter_inappwebview.callHandler('paymentResult', {
-                        status: 'error',
-                        message: response.data.user_message || 'Ocurrió un error en el pago'
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.log('Error Charges')
-                console.log(error)
-
-                // window.flutter_inappwebview.callHandler('paymentResult', {
-                //     status: 'error',
-                //     message: 'Error en la transacción'
-                // });
-
-            });
+            
         }   
 
         Culqi.initCheckout();
         
-        // const btn_pagar = document.getElementById('btn_pagar');
-            // btn_pagar.addEventListener('click', function (e) {
-            //     Culqi.open();
-            //     e.preventDefault();
-        // })
 
         Culqi.closeCheckout = () => {
             console.log("Close... ");
@@ -218,14 +141,8 @@
 
         };
 
-        // const pagoExitoso = { success: true };
-        // const modalIframe = document.getElementById("modalFrame").contentWindow;
-        // modalIframe.postMessage(pagoExitoso, "*");
-
       </script>
     </script>
-
-
 
     <iframe id="modalFrame" src="modal.html" style="width: 0; height: 0; border: none;"></iframe>
 
