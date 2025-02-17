@@ -14,10 +14,20 @@
     <script type="text/javascript">
       openForm();
 
+      function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
       function openForm() {
+        const sessionToken = getQueryParam("sessiontoken");
+        if (!sessionToken) {
+          alert("Token URL.");
+          return;
+        }
+
         VisanetCheckout.configure({
-          sessiontoken:
-            "60bee2801cf8e3bf5eb3c80b22d407ab0f2f422ade03d646b5e93275bdaf460e",
+          sessiontoken: sessionToken,
           channel: "web",
           merchantid: "456879852",
           purchasenumber: 111111112,
